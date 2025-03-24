@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/styles.css" />
+    <title>Editor de Imagens</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1>Editor de Imagens</h1>
+    </div>
+    
+    <div class="container">
+        <div class="upload-box" id="upload-box">
+            <input type="file" id="file-input" />
+            <p>Upload Image or Drop File</p>
+        </div>
+
+        <div id="editor-menu" class="editor-menu hidden">
+            <h2>Editor</h2>
+            <canvas id="canvas"></canvas>
+
+            <label>Tamanho: <input type="range" id="resize" min="50" max="200" value="100"></label>
+            <label>Rotação: <input type="range" id="rotate" min="0" max="360" value="0"></label>
+            <label>Brilho: <input type="range" id="brightness" min="50" max="150" value="100"></label>
+            <label>Contraste: <input type="range" id="contrast" min="50" max="150" value="100"></label>
+
+            <h3>Filtros</h3>
+            <button id="bw-filter">Preto e Branco</button>
+            <button id="sepia-filter">Sépia</button>
+            <button id="invert-filter">Inverter Cores</button>
+            <button id="blur-filter">Desfoque</button>
+            <button id="saturate-filter">Saturação</button>
+
+            <h3>Formas</h3>
+            <button id="add-text">Adicionar Texto</button>
+            <button id="add-line">Linha</button>
+            <button id="add-circle">Círculo</button>
+            <button id="add-rectangle">Retângulo</button>
+            <button id="add-triangle">Triângulo</button>
+            <button id="add-ellipse">Elipse</button>
+
+            <h3>Configuração do Texto</h3>
+            <input type="text" id="text-input" placeholder="Digite o texto" />
+            <input type="color" id="text-color" value="#ff0000" />
+            <input type="number" id="text-size" min="10" max="100" value="20" />
+
+            <button id="save-image">Salvar Imagem</button>
+        </div>
+    </div>
+
+    <script src="js/handleUpload.js"></script>
+</body>
+</html>
