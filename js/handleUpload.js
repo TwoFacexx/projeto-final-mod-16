@@ -11,19 +11,6 @@ const rotateInput = document.getElementById("rotate");
 const bwFilter = document.getElementById("bw-filter");
 const sepiaFilter = document.getElementById("sepia-filter");
 const invertFilter = document.getElementById("invert-filter");
-const blurFilter = document.getElementById("blur-filter");
-const saturateFilter = document.getElementById("saturate-filter");
-
-const addText = document.getElementById("add-text");
-const addLine = document.getElementById("add-line");
-const addCircle = document.getElementById("add-circle");
-const addRectangle = document.getElementById("add-rectangle");
-const addTriangle = document.getElementById("add-triangle");
-const addEllipse = document.getElementById("add-ellipse");
-
-const textInput = document.getElementById("text-input");
-const textColor = document.getElementById("text-color");
-const textSize = document.getElementById("text-size");
 
 let image = new Image();
 
@@ -46,44 +33,43 @@ fileInput.addEventListener("change", (event) => {
     }
 });
 
-bwFilter.addEventListener("click", () => applyFilter("grayscale(100%)"));
-sepiaFilter.addEventListener("click", () => applyFilter("sepia(100%)"));
-invertFilter.addEventListener("click", () => applyFilter("invert(100%)"));
-blurFilter.addEventListener("click", () => applyFilter("blur(5px)"));
-saturateFilter.addEventListener("click", () => applyFilter("saturate(200%)"));
+bwFilter.addEventListener("click", () => applyFilter("bw"));
+sepiaFilter.addEventListener("click", () => applyFilter("sepia"));
+invertFilter.addEventListener("click", () => applyFilter("invert"));
 
 function applyFilter(filter) {
-    ctx.filter = filter;
-    ctx.drawImage(image, 0, 0);
+    const data = {
+        image: canvas.toDataURL("image/png"),
+        filter: filter
+    };
+    
+    fetch('/edit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.blob())
+    .then(imageBlob => {
+        const url = URL.createObjectURL(imageBlob);
+        image.src = url;
+        image.onload = () => ctx.drawImage(image, 0, 0);
+    });
 }
 
-addText.addEventListener("click", () => {
-    ctx.fillStyle = textColor.value;
-    ctx.font = `${textSize.value}px Arial`;
-    ctx.fillText(textInput.value, 50, 50);
+document.getElementById('save-image').addEventListener('click', () => {
+    const data = {
+        image: canvas.toDataURL("image/png")
+    };
+    
+    fetch('/save', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => alert(data.message));
 });
-
-addLine.addEventListener("click", () => {
-    ctx.beginPath();
-    ctx.moveTo(20, 20);
-    ctx.lineTo(200, 200);
-    ctx.stroke();
-});
-
-addRectangle.addEventListener("click", () => ctx.fillRect(50, 50, 100, 50));
-addTriangle.addEventListener("click", () => {
-    ctx.beginPath();
-    ctx.moveTo(50, 50);
-    ctx.lineTo(100, 150);
-    ctx.lineTo(0, 150);
-    ctx.closePath();
-    ctx.fill();
-});
-
-addCircle.addEventListener("click", () => {
-    ctx.beginPath();
-    ctx.arc(100, 100, 50, 0, Math.PI * 2);
-    ctx.fill();
-});
-
-addEllipse.addEventListener("click", () => ctx.ellipse(100, 100, 60, 40, 0, 0, Math.PI * 2));
