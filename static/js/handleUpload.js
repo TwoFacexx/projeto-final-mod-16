@@ -12,22 +12,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-    document.getElementById('upload-button').addEventListener('click', function() {
-        const fileInput = document.getElementById('file-input');
-        const file = fileInput.files[0];
+    document.getElementById('file-input').addEventListener('change', function(event) {
+        const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
             reader.onload = function(e) {
-                const img = document.getElementById('uploaded-image');
-                img.src = e.target.result;
-                img.style.display = 'block';
-                uploadBox.style.display = 'none';
-                editorMenu.style.display = 'block';
-            }
+                document.getElementById('editor-menu').classList.remove('hidden');
+    
+                const canvas = document.getElementById('canvas');
+                const ctx = canvas.getContext('2d');
+                const image = new Image();
+    
+                image.onload = function() {                   
+                    const maxWidth = 400; 
+                    const scaleFactor = maxWidth / image.width;
+                    canvas.width = maxWidth;
+                    canvas.height = image.height * scaleFactor;
+    
+                    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+                };
+    
+                image.src = e.target.result;
+            };
             reader.readAsDataURL(file);
-        } else {
-            alert('Please select a file first.');
         }
+    });
+    
+
+    document.getElementById('upload-button').addEventListener('click', function() {
+        document.getElementById('file-input').click();
     });
 
     addTextButton.addEventListener('click', function () {

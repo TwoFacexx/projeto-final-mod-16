@@ -39,17 +39,12 @@ body {
 }
 
 .editor-menu {
-    margin-top: 20px;
-    padding: 20px;
-    background-color: #1e1e1e;
+    flex: 0.4; 
+    max-width: 300px;
+    padding: 15px;
+    background: #1e1e1e;
     border-radius: 8px;
-    width: 80%;
-    max-width: 600px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .hidden {
@@ -57,10 +52,8 @@ body {
 }
 
 canvas {
-    background-color: white;
-    display: block;
-    margin: 10px auto;
-    border-radius: 5px;
+    max-width: 100%;
+    height: auto;
 }
 
 input[type="text"], input[type="color"] {
@@ -130,4 +123,20 @@ form button {
 
 .edit-zone {
     display: flex;
+}
+.edit-container {
+    display: flex;
+    align-items: flex-start; /* Alinha os itens no topo */
+    gap: 20px; /* Espaço entre a imagem e o menu */
+    padding: 20px;
+}
+
+.image-preview {
+    flex: 1; /* Ocupa o espaço disponível à esquerda */
+}
+
+#canvas {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ccc; /* Apenas para visualização */
 }

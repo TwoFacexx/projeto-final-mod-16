@@ -1,38 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor Web de Imagens</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
+
 <body>
     <div class="navbar">
         <h1>Editor de Imagens</h1>
     </div>
     <div class="container">
         <div class="upload-box" id="upload-box">
-            <input type="file" id="file-input" />
-            <p id="upload-text">Upload Image or Drop File</p>
-            <button id="upload-button">Upload</button>
+            <form id="upload-form" enctype="multipart/form-data">
+                <input type="file" id="file-input" aria-label="Upload Image or Drop File" />
+                <p id="upload-text">Upload Image or Drop File</p>
+                <button type="button" id="upload-button">Upload</button>
+            </form>
         </div>
-        <div class="edit-zone">
-            <img id="uploaded-image" style="display:none;" />
+        <div class="edit-container">
+            <div class="image-preview">
+                <canvas id="canvas"></canvas>
+            </div>
             <div id="editor-menu" class="editor-menu hidden">
                 <h2>Editor</h2>
-                <canvas id="canvas"></canvas>
-                <label>Texto: <input type="text" id="text-content"></label>
+                <canvas id="canvas"></canvas>        
+                <label for="text-content">Texto: <input type="text" id="text-content"></label>
                 <button id="add-text">Adicionar Texto</button>
-                <br></br>
-                <label>Cor: <input type="color" id="text-color"></label>
+                <br>
+                <label for="text-color">Cor: <input type="color" id="text-color"></label>
                 <button id="draw-circle">Desenhar Círculo</button>
-                <br></br>
+                <br>
                 <button id="draw-line">Desenhar Linha</button>
-                <br></br>
+                <button id="resize-image">Redimensionar Imagem</button>
+                <button id="grayscale">Preto e Branco</button>
+                <br>
+                <label for="brightness">Luminusidade: <input type="range" id="brightness" min="0" max="200" value="100"></label>
+                <br>
+                <label for="contrast">Contraste: <input type="range" id="contrast" min="0" max="200" value="100"></label>
+                <br>
                 <button id="save-image">Salvar Imagem</button>
             </div>
         </div>
-    </div>
-    <script src="{{ url_for('static', filename='js/handleUpload.js') }}"></script>
+            </div>
+        </div>
+        <script src="{{ url_for('static', filename='js/handleUpload.js') }}"></script>
 </body>
+
 </html>
