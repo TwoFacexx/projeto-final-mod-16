@@ -126,17 +126,17 @@ form button {
 }
 .edit-container {
     display: flex;
-    align-items: flex-start; /* Alinha os itens no topo */
-    gap: 20px; /* Espaço entre a imagem e o menu */
+    align-items: flex-start; 
+    gap: 20px; 
     padding: 20px;
 }
 
 .image-preview {
-    flex: 1; /* Ocupa o espaço disponível à esquerda */
+    flex: 1; 
 }
 
 #canvas {
     max-width: 100%;
     height: auto;
-    border: 1px solid #ccc; /* Apenas para visualização */
+    border: 1px solid #ccc;
 }

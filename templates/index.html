@@ -20,6 +20,11 @@
                 <button type="button" id="upload-button">Upload</button>
             </form>
         </div>
+        <div class="create-container">
+            <button id="create-image-button">Criar Imagem do Zero</button>
+        </div>
+     
+        </form>
         <div class="edit-container">
             <div class="image-preview">
                 <canvas id="canvas"></canvas>
@@ -28,25 +33,27 @@
                 <h2>Editor</h2>
                 <canvas id="canvas"></canvas>        
                 <label for="text-content">Texto: <input type="text" id="text-content"></label>
-                <button id="add-text">Adicionar Texto</button>
+                <label for="text-color">Cor do Texto: <input type="color" id="text-color" value="#ffffff"></label>
+                <button id="add-text-button">Adicionar Texto</button>
                 <br>
-                <label for="text-color">Cor: <input type="color" id="text-color"></label>
-                <button id="draw-circle">Desenhar Círculo</button>
-                <br>
+                <button id="draw-circle">Desenhar Forma Geométrica</button>
                 <button id="draw-line">Desenhar Linha</button>
                 <button id="resize-image">Redimensionar Imagem</button>
                 <button id="grayscale">Preto e Branco</button>
+                <button id="sepia">Sepia</button>
+                <button id="blur">Desfoque</button>
+                <button id="sharpen">Aumentar Nitidez</button>
                 <br>
-                <label for="brightness">Luminusidade: <input type="range" id="brightness" min="0" max="200" value="100"></label>
+                <label for="brightness">Brilho: <input type="range" id="brightness" min="0" max="200" value="100"></label>
                 <br>
                 <label for="contrast">Contraste: <input type="range" id="contrast" min="0" max="200" value="100"></label>
                 <br>
                 <button id="save-image">Salvar Imagem</button>
             </div>
         </div>
-            </div>
-        </div>
+        
         <script src="{{ url_for('static', filename='js/handleUpload.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/createImage.js') }}"></script>
 </body>
 
 </html>
