@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editor Web de Imagens</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -35,6 +36,7 @@
                 <h2>Editor</h2>
                 <canvas id="canvas"></canvas>        
                 <button id="resize-image">Redimensionar Imagem</button>
+                <button id="rotate-image">Rotacionar Imagem</button>
                 <button id="grayscale">Preto e Branco</button>
                 <button id="sepia">Sepia</button>
                 <button id="blur">Desfoque</button>
@@ -48,7 +50,8 @@
                     <input type="range" id="contrast" min="0" max="200" value="100" step="1">
                 </label>
                 <br>
-                <button id="download-image-editor">Salvar Imagem</button>
+                <button id="reset-filters">Resetar Filtros</button>
+                <button id="download-image-editor">Salvar Imagem</button>         
             </div>
             <div class="image-editor-creator hidden">
                 <label for="text-content">Texto: 

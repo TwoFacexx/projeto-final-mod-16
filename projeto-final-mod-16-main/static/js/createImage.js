@@ -329,3 +329,10 @@ document.getElementById("download-image").addEventListener("click", function () 
     link.download = "canvas-image.png"; // Nome do arquivo salvo
     link.click(); // Simula o clique no link para iniciar o download
 });
+
+document.getElementById("create-image-button").addEventListener("click", function () {
+    document.querySelector(".image-editor-creator").classList.remove("hidden");
+
+    // Ocultar o menu de edição
+    document.getElementById("editor-menu").classList.add("hidden");
+});
