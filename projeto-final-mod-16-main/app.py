@@ -39,12 +39,15 @@ def apply_filter():
     text_content = data.get('text', '')
     text_color = data.get('color', '#000000')
 
-    if not filepath or not os.path.exists(filepath):
+    # Criar uma nova imagem em branco se o filepath for None
+    if not filepath:
+        img = Image.new('RGB', (800, 600), 'white')  # Tamanho padrão 800x600, fundo branco
+    elif not os.path.exists(filepath):
         return jsonify({'error': 'Arquivo não encontrado.'}), 400
-
-    try:
+    else:
         img = Image.open(filepath)
 
+    try:
         if filter_type == 'grayscale':
             img = img.convert('L').convert('RGB')
         elif filter_type == 'sepia':
@@ -81,6 +84,6 @@ def apply_filter():
         return send_file(output, mimetype='image/png')
     except Exception as e:
         return jsonify({'error': str(e)}), 500
-
+    
 if __name__ == '__main__':
     app.run(debug=True)

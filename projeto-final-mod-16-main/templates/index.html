@@ -12,6 +12,8 @@
     <div class="navbar">
         <h1>Editor de Imagens</h1>
     </div>
+    <div id="loading-indicator" class="hidden">Carregando...</div>
+    <div class="container">
     <div class="container">
         <div class="upload-box" id="upload-box">
             <form id="upload-form" enctype="multipart/form-data">
@@ -27,20 +29,11 @@
         </form>
         <div class="edit-container">
             <div class="image-preview">
-                <canvas id="canvas"></canvas>
+                <canvas id="canvas" width="800" height="600" style="border: 1px solid #000;"></canvas>
             </div>
             <div id="editor-menu" class="editor-menu hidden">
                 <h2>Editor</h2>
                 <canvas id="canvas"></canvas>        
-                <label for="text-content">Texto: 
-                    <input type="text" id="text-content" placeholder="Digite o texto">
-                </label>
-                <label for="text-color">Cor do Texto: 
-                    <input type="color" id="text-color" value="#000000">
-                </label>
-                <button id="add-text-button">Adicionar Texto</button>
-                <button id="draw-circle">Desenhar Forma Geométrica</button>
-                <button id="draw-line">Desenhar Linha</button>
                 <button id="resize-image">Redimensionar Imagem</button>
                 <button id="grayscale">Preto e Branco</button>
                 <button id="sepia">Sepia</button>
@@ -55,6 +48,22 @@
                     <input type="range" id="contrast" min="0" max="200" value="100" step="1">
                 </label>
                 <br>
+                <button id="download-image-editor">Salvar Imagem</button>
+            </div>
+            <div class="image-editor-creator hidden">
+                <label for="text-content">Texto: 
+                    <input type="text" id="text-content" placeholder="Digite o texto">
+                </label>
+                <label for="text-color">Cor do Texto: 
+                    <input type="color" id="text-color" value="#000000">
+                </label>
+                <button id="add-text-button">Adicionar Texto</button>
+                <button id="draw-solid">Desenhar Forma Geométrica</button>
+                <div id="geometry-menu" class="hidden">
+                    <button id="draw-square">Desenhar Quadrado</button>
+                    <button id="draw-circle">Desenhar Círculo</button>
+                    <button id="draw-triangle">Desenhar Triângulo</button>
+                </div>
                 <button id="download-image">Salvar Imagem</button>
             </div>
         </div>

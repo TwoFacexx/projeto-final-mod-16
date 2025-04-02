@@ -3,31 +3,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const ctx = canvas.getContext('2d');
     let currentFilepath = '';
 
-    document.getElementById('file-input').addEventListener('change', function(event) {
+    document.getElementById('file-input').addEventListener('change', function (event) {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = function(e) {
+            reader.onload = function (e) {
                 document.getElementById('editor-menu').classList.remove('hidden');
-
+                document.querySelector('.image-editor-creator').classList.add('hidden'); // Ocultar o criador de imagem
+    
                 const image = new Image();
-                image.onload = function() {
+                image.onload = function () {
                     const maxWidth = 400;
                     const scaleFactor = maxWidth / image.width;
                     canvas.width = maxWidth;
                     canvas.height = image.height * scaleFactor;
-
+    
                     ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
                 };
-
+    
                 image.src = e.target.result;
             };
             reader.readAsDataURL(file);
-
+    
             // Upload the file to the backend
             const formData = new FormData();
             formData.append('file', file);
-
+    
             fetch('/upload', {
                 method: 'POST',
                 body: formData
@@ -59,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
         applyFilter('contrast', { contrast: contrastValue }); // Passar o valor como parte de options
     });
 
-    document.getElementById('download-image').addEventListener('click', function () {
+    document.getElementById('download-image-editor').addEventListener('click', function () {
         const canvas = document.getElementById('canvas');
         const link = document.createElement('a');
         link.download = 'imagem-editada.png'; // Nome do arquivo de download
@@ -67,27 +68,17 @@ document.addEventListener('DOMContentLoaded', function () {
         link.click(); // Simula o clique no link para iniciar o download
     });
     
-    document.getElementById('add-text-button').addEventListener('click', function () {
-        const textContent = document.getElementById('text-content').value;
-        const textColor = document.getElementById('text-color').value;
-    
-        if (!textContent) {
-            alert('Por favor, insira um texto.');
-            return;
-        }
-    
-        applyFilter('add_text', { text: textContent, color: textColor });
-    });
-
-
     function applyFilter(filterType, options = {}) {
-        if (!currentFilepath) {
-            alert('Nenhuma imagem carregada.');
+        const canvas = document.getElementById('canvas');
+    
+        // Verificar se o canvas está inicializado
+        if (canvas.width === 0 || canvas.height === 0) {
+            alert('Nenhuma imagem carregada ou criada.');
             return;
         }
     
         const requestBody = {
-            filepath: currentFilepath,
+            filepath: currentFilepath || null, // Permitir null se não houver imagem carregada
             filter: filterType,
             ...options // Adiciona as opções ao corpo da requisição
         };
@@ -103,9 +94,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(blob => {
             const url = URL.createObjectURL(blob);
             const image = new Image();
-            image.onload = function() {
+            image.onload = function () {
                 canvas.width = image.width;
                 canvas.height = image.height;
+                const ctx = canvas.getContext('2d');
                 ctx.drawImage(image, 0, 0);
                 URL.revokeObjectURL(url);
             };

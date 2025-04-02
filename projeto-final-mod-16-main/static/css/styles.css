@@ -140,3 +140,38 @@ form button {
     height: auto;
     border: 1px solid #ccc;
 }
+
+.image-editor-creator {
+    flex: 0.4; 
+    max-width: 300px;
+    padding: 15px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hidden {
+    display: none;
+}
+
+#geometry-menu {
+    margin-top: 10px;
+}
+
+#loading-indicator {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    z-index: 1000;
+    display: none;
+}
+
+#loading-indicator.hidden {
+    display: none;
+}
